@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const userRouter = express.Router();
 
-const getUser = async (req, res) => {
+const getUsers = async (req, res) => {
   try {
     const data = await fs.promises.readFile(path.join(__dirname, '../data/users.json'));
     res.send(JSON.parse(data));
@@ -15,16 +15,20 @@ const getUser = async (req, res) => {
 
 const getUserById = async (req, res) => {
   const { id } = req.params;
-  const data = await fs.promises.readFile(path.join(__dirname, '../data/users.json'));
-  const user = JSON.parse(data).find(({ _id: userId }) => userId === id);
   try {
-    res.send({ data: user });
+    const data = await fs.promises.readFile(path.join(__dirname, '../data/users.json'));
+    const user = JSON.parse(data).find(({ _id: userId }) => userId === id);
+    if (user) {
+      res.send({ data: user });
+    } else {
+      res.status(404).send({ error: 'ID do usuário não encontrado' });
+    }
   } catch (err) {
-    res.send({ error: err, message: 'ID do usuário não encontrado' });
+    res.status(500).send({ error: err });
   }
 };
 
-userRouter.get('/', getUser);
+userRouter.get('/', getUsers);
 userRouter.get('/:id', getUserById);
 
 module.exports = userRouter;

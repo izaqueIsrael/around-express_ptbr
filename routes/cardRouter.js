@@ -9,7 +9,7 @@ const getCards = async (req, res) => {
     const data = await fs.promises.readFile(path.join(__dirname, '../data/cards.json'));
     res.send(JSON.parse(data));
   } catch (err) {
-    res.send(err);
+    res.status(500).send({ error: 500, message: 'Cards not found', log: err });
   }
 };
 

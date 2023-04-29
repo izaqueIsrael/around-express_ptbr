@@ -9,6 +9,6 @@ const absentRouter = require('./routes/absentRouter');
 
 app.use('/cards', cardRouter);
 app.use('/users', userRouter);
-app.use('/err', absentRouter);
+app.use('/*', absentRouter);
 
 app.listen(PORT);
