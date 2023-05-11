@@ -1,18 +1,11 @@
 const express = require('express');
-const path = require('path');
-const fs = require('fs');
 
 const cardRouter = express.Router();
 
-const getCards = async (req, res) => {
-  try {
-    const data = await fs.promises.readFile(path.join(__dirname, '../data/cards.json'));
-    res.send(JSON.parse(data));
-  } catch (err) {
-    res.status(500).send({ error: 500, message: 'Cards not found', log: err });
-  }
-};
+const { getCards, createCard, deleteCard } = require('../controllers/card');
 
-cardRouter.get('/', getCards);
+cardRouter.get('/cards', getCards);
+cardRouter.post('/cards', createCard);
+cardRouter.delete('/cards/:cardId', deleteCard);
 
 module.exports = cardRouter;
