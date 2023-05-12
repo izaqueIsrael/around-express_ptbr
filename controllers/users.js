@@ -7,13 +7,13 @@ const getUsers = (req, res) => {
 };
 
 const getUserById = (req, res) => {
-  User.findById(req.user._id)
+  User.findOne({ _id: req.params._id })
     .then((user) => {
-      if (user) {
-        res.send({ data: user });
-      } else {
-        res.status(404).send({ error: 'ID do usuário não encontrado' });
+      if (!user) {
+        res.status(404).send({ error: 'ID do usuário não encontrado', data: user, datas: req.params._id });
+        return;
       }
+      res.status(201).send({ data: user });
     })
     .catch((err) => res.status(500).send({ message: err.message }));
 };

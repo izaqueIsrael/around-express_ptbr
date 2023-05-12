@@ -1,4 +1,5 @@
 /* eslint-disable prefer-regex-literals */
+// Se eu não colocar o RegExp dá problema no mongoose dizendo que ele ñ consegue entender o validate
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({

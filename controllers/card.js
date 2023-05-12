@@ -7,8 +7,8 @@ const getCards = (req, res) => {
 };
 
 const createCard = (req, res) => {
-  const { nome, link } = req.body;
-  Card.create({ nome, link, dono: req.user._id })
+  const { name, link } = req.body;
+  Card.create({ name, link, owner: req.user._id })
     .then((card) => res.status(201).send({ data: card }))
     .catch((err) => res.status(500).send({ message: err.message }));
 };

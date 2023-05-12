@@ -4,8 +4,8 @@ const userRouter = express.Router();
 
 const { getUsers, getUserById, createUser } = require('../controllers/users');
 
-userRouter.get('/users', getUsers);
-userRouter.patch('/users', createUser);
-userRouter.get('/users/:userId', getUserById);
+userRouter.get('/', getUsers);
+userRouter.patch('/', createUser);
+userRouter.get('/:_id', getUserById);
 
 module.exports = userRouter;
