@@ -7,9 +7,9 @@ const getCards = (req, res) => {
     .catch((err) => res.status(500).send({ message: err.message }));
 };
 
-const createCard = async (req, res) => {
+const createCard = (req, res) => {
   const { name, link } = req.body;
-  const newId = await new mongoose.Types.ObjectId();
+  const newId = new mongoose.Types.ObjectId();
   Card.create({
     _id: newId,
     name,
