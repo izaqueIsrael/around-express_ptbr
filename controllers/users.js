@@ -7,13 +7,13 @@ const getUsers = (req, res) => {
 };
 
 const getUserById = (req, res) => {
-  User.findOne({ _id: req.params._id })
+  User.findOne({ _id: req.params.userId })
     .then((user) => {
       if (!user) {
-        res.status(404).send({ error: 'ID do usuário não encontrado', data: user, datas: req.params._id });
+        res.status(404).send({ error: 'ID do usuário não encontrado' });
         return;
       }
-      res.status(201).send({ data: user });
+      res.status(200).send({ user });
     })
     .catch((err) => res.status(500).send({ message: err.message }));
 };

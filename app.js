@@ -15,9 +15,8 @@ const cardRouter = require('./routes/cardRouter');
 const userRouter = require('./routes/userRouter');
 const absentRouter = require('./routes/absentRouter');
 
-app.use('/cards', cardRouter);
-app.use('/users', userRouter);
-app.use('/*', absentRouter);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   req.user = {
@@ -25,5 +24,9 @@ app.use((req, res, next) => {
   };
   next();
 });
+
+app.use('/cards', cardRouter);
+app.use('/users', userRouter);
+app.use('/*', absentRouter);
 
 app.listen(PORT);
